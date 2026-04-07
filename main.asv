@@ -8,6 +8,7 @@ ttwistor;
 
 %% 2.1
 initial_state = [0; 0; 1609.34; 0; 0; 0; 21; 0; 0; 0; 0; 0];
+density = stdatmo(initial_state(3));
 %aircraft_surfaces = [de da dr dt]; 
 aircraft_surfaces = [0; 0; 0; 0];
 wind_inertial = [0; 0; 0];
@@ -38,10 +39,7 @@ p = aircraft_state(10);
 q = aircraft_state(11); 
 r = aircraft_state(12);
 
-g = aircraft_parameters.g;
-m = aircraft_parameters.m;
-density = stdatmo(z);
-[aero_forces, aero_moments] = AeroForcesAndMoments(aircraft_state, aircraft_surfaces, wind_inertial, density, aircraft_parameters);
+    [aero_forces, aero_moments] = AeroForcesAndMoments(aircraft_state, aircraft_surfaces, wind_inertial, density, aircraft_parameters);
 
 
 % rotation matrix from body to inertial (ZYX)
