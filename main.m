@@ -59,9 +59,9 @@ Vel_dot = [r*v-q*w; p*w-r*u; q*u - p*v]+ g*[-sin(theta); cos(theta)*sin(phi); ..
     cos(theta)*cos(phi)] + (1/m)*([aero_forces(1); aero_forces(2); aero_forces(3)]);
 
 Ix = aircraft_parameters.Ix;
-Iy = aircraft_parameters.Ix;
-Iz = aircraft_parameters.Ix;
-Ixz = aircraft_parameters.Ix;
+Iy = aircraft_parameters.Iy;
+Iz = aircraft_parameters.Iz;
+Ixz = aircraft_parameters.Ixz;
 
 Gamma = Ix*Iz - Ixz^2;
 Gamma1 = (Ixz*(Ix-Iy+Iz))/Gamma;
