@@ -8,7 +8,6 @@ ttwistor;
 
 %% 2.1
 initial_state = [0; 0; 1609.34; 0; 0; 0; 21; 0; 0; 0; 0; 0];
-density = stdatmo(initial_state(3));
 %aircraft_surfaces = [de da dr dt]; 
 aircraft_surfaces = [0; 0; 0; 0];
 wind_inertial = [0; 0; 0];
@@ -39,7 +38,10 @@ p = aircraft_state(10);
 q = aircraft_state(11); 
 r = aircraft_state(12);
 
-    [aero_forces, aero_moments] = AeroForcesAndMoments(aircraft_state, aircraft_surfaces, wind_inertial, density, aircraft_parameters);
+g = aircraft_parameters.g;
+m = aircraft_parameters.m;
+density = stdatmo(z);
+[aero_forces, aero_moments] = AeroForcesAndMoments(aircraft_state, aircraft_surfaces, wind_inertial, density, aircraft_parameters);
 
 
 % rotation matrix from body to inertial (ZYX)
@@ -57,9 +59,9 @@ Vel_dot = [r*v-q*w; p*w-r*u; q*u - p*v]+ g*[-sin(theta); cos(theta)*sin(phi); ..
     cos(theta)*cos(phi)] + (1/m)*([aero_forces(1); aero_forces(2); aero_forces(3)]);
 
 Ix = aircraft_parameters.Ix;
-Iy = aircraft_parameters.Ix;
-Iz = aircraft_parameters.Ix;
-Ixz = aircraft_parameters.Ix;
+Iy = aircraft_parameters.Iy;
+Iz = aircraft_parameters.Iz;
+Ixz = aircraft_parameters.Ixz;
 
 Gamma = Ix*Iz - Ixz^2;
 Gamma1 = (Ixz*(Ix-Iy+Iz))/Gamma;

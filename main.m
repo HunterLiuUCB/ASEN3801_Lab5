@@ -1,5 +1,4 @@
 %% Main.m
-% hunter
 clear
 clc
 close all
@@ -15,6 +14,11 @@ wind_inertial = [0; 0; 0];
 tspan = [0 10];
 
 [t_out_21, state_out_21] = ode45(@(time, aircraft_state) AircraftEOM(time, aircraft_state, aircraft_surfaces, wind_inertial, aircraft_parameters), tspan, initial_state);
+
+%% 2.2
+initial_state = [0; 0; -1609.34; 0; 0; 0; 21; 0; 0; 0; 0; 0];
+aircraft_surfaces = [0; 0; 0; 0];
+[t_out_22, state_out_22] = ode45(@(time, aircraft_state) AircraftEOM(time, aircraft_state, aircraft_surfaces, wind_inertial, aircraft_parameters), tspan, initial_state);
 
 %% AircraftEOM.m Function
 % Inputs:
@@ -41,7 +45,7 @@ r = aircraft_state(12);
 
 g = aircraft_parameters.g;
 m = aircraft_parameters.m;
-density = stdatmo(z);
+density = stdatmo(-z);
 [aero_forces, aero_moments] = AeroForcesAndMoments(aircraft_state, aircraft_surfaces, wind_inertial, density, aircraft_parameters);
 
 
