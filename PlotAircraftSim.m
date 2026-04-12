@@ -143,9 +143,18 @@ plot(time,dr,col);
 xlabel('time (s)');
 ylabel('Rudder Control (\delta_r)');
 
+
 subplot(2,2,4);
 hold on;
-dt = (control_input_array(4,:) - min(control_input_array(4,:))) / (max(control_input_array(4,:)) - min(control_input_array(4,:)));
+% This part is ensuring that we do not divide by 0 
+
+den = max(control_input_array(4,:)) - min(control_input_array(4,:));
+if den == 0
+    dt = zeros(size(control_input_array(4,:)));
+else
+    dt = (control_input_array(4,:) - min(control_input_array(4,:))) / den;
+end
+
 plot(time,dt,col);
 xlabel('time (s)');
 ylabel('Throttle Control (\delta_t)');
@@ -157,13 +166,13 @@ sgtitle('Control Inputs over Time');
 n = length(time);
 figure(fig(6));
 hold on;
-plot3(aircraft_state_array(1,:),aircraft_state_array(2,:),-1.*aircraft_state_array(3,:),col);
-plot3(aircraft_state_array(1,1),aircraft_state_array(2,1),-1.*aircraft_state_array(3,1),'gx');
-plot3(aircraft_state_array(1,n),aircraft_state_array(2,n),-1.*aircraft_state_array(3,n),'rx');
+plot3(aircraft_state_array(1,:),aircraft_state_array(2,:),(-1.*aircraft_state_array(3,:)),col);
+plot3(aircraft_state_array(1,1),aircraft_state_array(2,1),(-1*aircraft_state_array(3,1)),'gx');
+plot3(aircraft_state_array(1,n),aircraft_state_array(2,n),(-1*aircraft_state_array(3,n)),'rx');
 
 grid on;
 view(3);
-zlim([0, 5]);
+%zlim([0, 5]);
 xlabel('x (m)')
 ylabel('y (m)')
 zlabel('-z (m)')

@@ -15,10 +15,18 @@ tspan = [0 10];
 
 [t_out_21, state_out_21] = ode45(@(time, aircraft_state) AircraftEOM(time, aircraft_state, aircraft_surfaces_21, wind_inertial, aircraft_parameters), tspan, initial_state_21);
 
+ac_surfaces_array_21 = GetSurfaceArray(t_out_21,aircraft_surfaces_21);
+
+PlotAircraftSim(t_out_21, state_out_21', ac_surfaces_array_21', [1 2 3 4 5 6]', 'r')
 %% 2.2
 initial_state_22 = [0; 0; -1800; 0; 0.02780; 0; 20.99; 0; 0.5837; 0; 0; 0];
 aircraft_surfaces_22 = [0.1079; 0; 0; 0.3182];
 [t_out_22, state_out_22] = ode45(@(time, aircraft_state) AircraftEOM(time, aircraft_state, aircraft_surfaces_22, wind_inertial, aircraft_parameters), tspan, initial_state_22);
+
+ac_surfaces_array_22 = GetSurfaceArray(t_out_22,aircraft_surfaces_22);
+
+%PlotAircraftSim(t_out_22,state_out_22',ac_surfaces_array_22',[1 2 3 4 5 6]','b')
+
 
 %% 2.3
 con2rad = pi/180;
